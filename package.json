@@ -1,0 +1,18 @@
+{
+  "name": "bsp-blog",
+  "version": "1.0.0",
+  "description": "Android BSP 与嵌入式 Linux 底层技术博客",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "keywords": ["android", "bsp", "linux", "kernel", "blog"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}
