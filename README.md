@@ -75,13 +75,20 @@ tags: [RK3568, 驱动]
 
 ## 部署到 GitHub Pages
 
-1. GitHub 上新建仓库，把代码推上去（分支 `main`）
-2. 仓库 **Settings → Pages → Source** 选 **GitHub Actions**
-3. 域名解析加一条 CNAME 记录，指向 `<你的用户名>.github.io`
-4. **Settings → Pages → Custom domain** 填你的域名，勾选 **Enforce HTTPS**
-5. 之后每次 push 到 `main`，`.github/workflows/deploy.yml` 会自动构建并发布
+仓库：`https://github.com/Jay/Jay.github.io`，线上地址 `https://Jay.github.io`（用户页形式，所以 `config.mts` 里 `base` 保持 `/`）。
 
-不用自有域名也行：删掉 `public/CNAME`，然后把 `config.mts` 里的 `base` 改成 `/<仓库名>/`。
+日常发布：**双击 `push.bat`**，输入一句提交说明，回车就完事。它会 add → commit → push，GitHub Actions 自动构建发布，1~2 分钟生效。
+
+部署进度看：https://github.com/Jay/Jay.github.io/actions
+
+首次配置（已做过，备忘）：
+
+1. GitHub 建空仓库 `Jay.github.io`（不要勾 README / .gitignore）
+2. SSH 公钥加到 GitHub → Settings → SSH and GPG keys → New SSH key
+3. 仓库 **Settings → Pages → Source** 选 **GitHub Actions**
+4. 本地 remote 用的 SSH：`git@github.com:Jay/Jay.github.io.git`
+
+绑自有域名时：加 `public/CNAME` 写域名 + 域名解析加 CNAME 记录指向 `Jay.github.io`，在 Pages 设置里填域名并勾 Enforce HTTPS。
 
 ## 可选增强
 
