@@ -100,6 +100,7 @@ export default defineConfig({
   lastUpdated: true,
 
   head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ['meta', { name: 'theme-color', content: '#1e6fd9' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:locale', content: 'zh-CN' }],
@@ -124,6 +125,8 @@ export default defineConfig({
   },
 
   themeConfig: {
+    logo: '/logo.svg',
+
     nav: [
       { text: '首页', link: '/' },
       { text: '分类', link: '/categories' },

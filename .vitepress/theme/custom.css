@@ -89,3 +89,115 @@
   color: var(--vp-c-text-2);
   line-height: 1.6;
 }
+
+/* ===== 分类图标（浅灰圆形底，深浅色主题下都清晰） ===== */
+.cat-icon {
+  display: inline-block;
+  vertical-align: -4px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: #f1f3f5;
+  flex-shrink: 0;
+}
+
+.cat-icon-lg {
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+}
+
+.cat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 分类页：大类卡片 */
+.cat-card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px 22px 8px;
+  margin: 20px 0;
+  background: var(--vp-c-bg-soft);
+}
+
+.cat-card > .cat-head h2 {
+  margin: 0;
+  font-size: 19px;
+  border: none;
+  padding: 0;
+}
+
+.cat-sub {
+  margin: 14px 0 0;
+}
+
+.cat-sub-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cat-sub-head h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  border: none;
+  padding: 0;
+}
+
+.cat-empty {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+  margin: 2px 0 0 0;
+  padding-left: 40px;
+}
+
+/* 首页：四大类卡片网格 */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  margin: 8px 0 4px;
+}
+
+.home-card {
+  display: block;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.home-card:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+}
+
+.home-card h3 {
+  margin: 12px 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  border: none;
+  padding: 0;
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--vp-c-text-2);
+}
+
+@media (max-width: 640px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}

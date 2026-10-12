@@ -8,10 +8,33 @@ title: 分类
 import { data as posts } from '@data/posts.data'
 
 const TREE = [
-  { name: '软件系统交付', subs: ['MCU', 'RTOS', 'Linux', 'Android'] },
-  { name: '硬件平台与外设', subs: ['SoC', 'MCU'] },
-  { name: '复杂模块', subs: ['摄像头', '显示'] },
-  { name: '性能与功耗', subs: [] }
+  {
+    name: '软件系统交付',
+    icon: '/icons/layers.svg',
+    subs: [
+      { name: 'MCU', icon: '/icons/chip.svg' },
+      { name: 'RTOS', icon: '/icons/rtos.svg' },
+      { name: 'Linux', icon: '/icons/tux.svg' },
+      { name: 'Android', icon: '/icons/android.svg' }
+    ]
+  },
+  {
+    name: '硬件平台与外设',
+    icon: '/icons/board.svg',
+    subs: [
+      { name: 'SoC', icon: '/icons/soc.svg' },
+      { name: 'MCU', icon: '/icons/chip.svg' }
+    ]
+  },
+  {
+    name: '复杂模块',
+    icon: '/icons/module.svg',
+    subs: [
+      { name: '摄像头', icon: '/icons/camera.svg' },
+      { name: '显示', icon: '/icons/display.svg' }
+    ]
+  },
+  { name: '性能与功耗', icon: '/icons/power.svg', subs: [] }
 ]
 
 function listOf(cat, sub) {
@@ -19,23 +42,29 @@ function listOf(cat, sub) {
 }
 </script>
 
-<div v-for="cat in TREE" :key="cat.name" class="cat-block">
-  <h2>{{ cat.name }}</h2>
+<div v-for="cat in TREE" :key="cat.name" class="cat-card">
+  <div class="cat-head">
+    <img class="cat-icon cat-icon-lg" :src="cat.icon" alt="">
+    <h2>{{ cat.name }}</h2>
+  </div>
 
-  <template v-if="cat.subs.length">
-    <div v-for="sub in cat.subs" :key="sub" class="cat-sub">
-      <h3>{{ sub }}</h3>
-      <ul v-if="listOf(cat.name, sub).length" class="post-list">
-        <li v-for="p in listOf(cat.name, sub)" :key="p.url">
+  <div v-if="cat.subs.length">
+    <div v-for="sub in cat.subs" :key="sub.name" class="cat-sub">
+      <div class="cat-sub-head">
+        <img class="cat-icon" :src="sub.icon" alt="">
+        <h3>{{ sub.name }}</h3>
+      </div>
+      <ul v-if="listOf(cat.name, sub.name).length" class="post-list">
+        <li v-for="p in listOf(cat.name, sub.name)" :key="p.url">
           <a :href="p.url">{{ p.title }}</a>
           <span class="post-date">{{ p.date }}</span>
         </li>
       </ul>
       <p v-else class="cat-empty">暂无文章</p>
     </div>
-  </template>
+  </div>
 
-  <template v-else>
+  <div v-else>
     <ul v-if="listOf(cat.name, '').length" class="post-list">
       <li v-for="p in listOf(cat.name, '')" :key="p.url">
         <a :href="p.url">{{ p.title }}</a>
@@ -43,25 +72,5 @@ function listOf(cat, sub) {
       </li>
     </ul>
     <p v-else class="cat-empty">暂无文章</p>
-  </template>
+  </div>
 </div>
-
-<style scoped>
-.cat-block {
-  margin-bottom: 8px;
-}
-.cat-sub {
-  margin-bottom: 12px;
-}
-.cat-sub h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin: 14px 0 6px;
-  color: var(--vp-c-text-2);
-}
-.cat-empty {
-  font-size: 14px;
-  color: var(--vp-c-text-3);
-  margin: 0;
-}
-</style>
