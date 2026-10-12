@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 // ======== 需要你改成自己信息的三处 ========
 const SITE_TITLE = '底层手记'
 const SITE_DESC = 'Android BSP 与嵌入式 Linux 底层开发笔记 —— 内核驱动、U-Boot、bring-up 与调试排查'
-const GITHUB_URL = 'https://github.com/Jay/Jay.github.io'
+const GITHUB_URL = 'https://github.com/dddhhhxxx/dddhhhxxx.github.io'
 // ========================================
 
 export default defineConfig({

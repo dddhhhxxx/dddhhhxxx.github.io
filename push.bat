@@ -1,7 +1,7 @@
 @echo off
 REM === 博客一键推送脚本 ===
 REM 前置条件（只需做一次）：
-REM   1. GitHub 上已建好空仓库 Jay.github.io
+REM   1. GitHub 上已建好空仓库 dddhhhxxx.github.io
 REM   2. 已把 SSH 公钥加到 GitHub -> Settings -> SSH and GPG keys
 REM 之后每次写完文章，双击本文件即可发布
 
@@ -23,6 +23,6 @@ echo [3/3] 推送到 GitHub...
 git push -u origin main
 
 echo.
-echo 完成。1~2 分钟后访问 https://Jay.github.io 查看效果
-echo 部署进度：https://github.com/Jay/Jay.github.io/actions
+echo 完成。1~2 分钟后访问 https://dddhhhxxx.github.io 查看效果
+echo 部署进度：https://github.com/dddhhhxxx/dddhhhxxx.github.io/actions
 pause
