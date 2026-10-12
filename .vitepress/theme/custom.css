@@ -196,6 +196,12 @@
   color: var(--vp-c-text-2);
 }
 
+/* ===== 语言切换 ===== */
+/* 隐藏 VitePress 自带语言菜单（右上角），改用左上角的自定义按钮 */
+.VPNavBarTranslations {
+  display: none !important;
+}
+
 @media (max-width: 640px) {
   .home-grid {
     grid-template-columns: 1fr;

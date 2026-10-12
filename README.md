@@ -31,6 +31,54 @@ blog/
 └── .github/workflows/      GitHub Actions 自动部署
 ```
 
+## 多语言（中文 + 英文）
+
+**中文在根路径，英文在 `/en/`**，现有中文链接不受影响。切换按钮在**导航栏左上角**（站点标题右侧）。
+
+```
+docs/                 中文站（root locale）
+├── index.md  categories.md  archive.md  tags.md  about.md
+└── posts/…
+docs/en/              英文站
+├── index.md  categories.md  archive.md  tags.md  about.md
+└── posts/…
+```
+
+**按需翻译**：英文站只收录 `docs/en/posts/` 下真实存在的文章。没翻译的文章不会出现在英文站，在中文页点切换按钮会落到英文首页 —— 不会 404，也不会出现半吊子英文页。
+
+**写英文文章**：路径和中文一一对应，frontmatter 的 `category` / `sub` 用英文：
+
+```markdown
+---
+title: Article Title
+date: 2026-10-12
+category: Software Delivery
+sub: Linux
+tags: [RK3568, Driver]
+---
+```
+
+中英文分类名对照（改的话两边都要动 `config.mts` 里的 `TREE_ZH` / `TREE_EN`）：
+
+| 中文 | English |
+| --- | --- |
+| 软件系统交付 | Software Delivery |
+| 硬件平台与外设 | Hardware & Peripherals |
+| 复杂模块 | Complex Modules |
+| 性能与功耗 | Performance & Power |
+
+相关文件：
+
+| 文件 | 作用 |
+| --- | --- |
+| `.vitepress/config.mts` | `locales` 配置（两套 nav / sidebar / 界面文案） |
+| `.vitepress/data/posts.data.ts` | 中文文章数据（扫 `posts/**`） |
+| `.vitepress/data/posts-en.data.ts` | 英文文章数据（扫 `en/posts/**`） |
+| `.vitepress/theme/components/LangSwitch.vue` | 切换按钮（判断目标语言有无对应版本） |
+| `.vitepress/theme/index.ts` | 把按钮挂到 `nav-bar-title-after` 插槽 |
+
+> VitePress 自带的语言菜单（右上角）已被 CSS 隐藏，避免两个入口。要加第三种语言：在 `locales` 里加一项 + 建对应目录 + 改 `LangSwitch.vue` 的跳转逻辑。
+
 ## 分类结构：目录即分类
 
 文章放在哪个目录，就属于哪个分类。**侧边栏是按目录自动生成的，写完丢进对应目录就会出现，不用改 `config.mts`。**
