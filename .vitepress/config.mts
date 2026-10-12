@@ -1,20 +1,100 @@
 import { defineConfig } from 'vitepress'
 import { fileURLToPath, URL } from 'node:url'
+import fs from 'node:fs'
+import path from 'node:path'
 
-// ======== 需要你改成自己信息的三处 ========
-const SITE_TITLE = '底层手记'
-const SITE_DESC = 'Android BSP 与嵌入式 Linux 底层开发笔记 —— 内核驱动、U-Boot、bring-up 与调试排查'
+// ======== 站点信息 ========
+const SITE_TITLE = '嵌入式底层软件'
+const SITE_DESC = '嵌入式底层软件开发笔记 —— 系统交付、平台与外设、复杂模块、性能与功耗'
 const GITHUB_URL = 'https://github.com/dddhhhxxx/dddhhhxxx.github.io'
-// ========================================
+// =========================
+
+// ======== 分类骨架：目录名 → 中文名，数组顺序即侧边栏顺序 ========
+// 新增分类：在 docs/posts/ 下建对应目录，并在这里加一项即可
+const POSTS_DIR = fileURLToPath(new URL('../docs/posts', import.meta.url))
+
+const CATEGORY_TREE: { dir: string; text: string; subs: { dir: string; text: string }[] }[] = [
+  {
+    dir: 'software-delivery',
+    text: '软件系统交付',
+    subs: [
+      { dir: 'mcu', text: 'MCU' },
+      { dir: 'rtos', text: 'RTOS' },
+      { dir: 'linux', text: 'Linux' },
+      { dir: 'android', text: 'Android' }
+    ]
+  },
+  {
+    dir: 'hardware',
+    text: '硬件平台与外设',
+    subs: [
+      { dir: 'soc', text: 'SoC' },
+      { dir: 'mcu', text: 'MCU' }
+    ]
+  },
+  {
+    dir: 'modules',
+    text: '复杂模块',
+    subs: [
+      { dir: 'camera', text: '摄像头' },
+      { dir: 'display', text: '显示' }
+    ]
+  },
+  {
+    dir: 'performance',
+    text: '性能与功耗',
+    subs: []
+  }
+]
+// ==============================================================
+
+/** 从 Markdown 的 frontmatter 里读 title */
+function readTitle(file: string): string {
+  const content = fs.readFileSync(file, 'utf-8')
+  const m = content.match(/^title:\s*(.+?)\s*$/m)
+  return m ? m[1].replace(/^['"]|['"]$/g, '') : path.basename(file, '.md')
+}
+
+/** 扫描 posts/ 目录，按分类骨架自动生成侧边栏（空分类不显示） */
+function buildSidebar() {
+  const groups: { text: string; items: any[] }[] = []
+
+  for (const cat of CATEGORY_TREE) {
+    const items: any[] = []
+    // 无子分类时（如「性能与功耗」），文章直接放在大类目录下
+    const subDirs = cat.subs.length ? cat.subs : [{ dir: '', text: '' }]
+
+    for (const sub of subDirs) {
+      const dir = path.join(POSTS_DIR, cat.dir, sub.dir)
+      if (!fs.existsSync(dir)) continue
+
+      const files = fs
+        .readdirSync(dir)
+        .filter((f) => f.endsWith('.md'))
+        .sort()
+
+      if (!files.length) continue
+
+      const links = files.map((f) => ({
+        text: readTitle(path.join(dir, f)),
+        link: ['/posts', cat.dir, sub.dir, f.replace(/\.md$/, '')].filter(Boolean).join('/')
+      }))
+
+      if (sub.text) items.push({ text: sub.text, items: links })
+      else items.push(...links)
+    }
+
+    if (items.length) groups.push({ text: cat.text, items })
+  }
+
+  return groups
+}
 
 export default defineConfig({
   lang: 'zh-CN',
   title: SITE_TITLE,
   description: SITE_DESC,
-  // 绑定自有域名时保持 '/'
-  // 若用项目页形式（username.github.io/repo），改成 '/repo/'
   base: '/',
-  // 文档源码目录（README、node_modules 等不会被当作页面）
   srcDir: 'docs',
   cleanUrls: true,
   lastUpdated: true,
@@ -29,7 +109,6 @@ export default defineConfig({
 
   markdown: {
     lineNumbers: true,
-    // 代码块的复制按钮由主题提供，这里只做语言别名映射
     languageAlias: {
       dts: 'cpp',
       dtsi: 'cpp'
@@ -39,7 +118,6 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        // 文章数据加载器，页面里用 '@data/posts.data' 引用
         '@data': fileURLToPath(new URL('./data', import.meta.url))
       }
     }
@@ -48,26 +126,14 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: '分类', link: '/categories' },
       { text: '归档', link: '/archive' },
       { text: '标签', link: '/tags' },
       { text: '关于', link: '/about' }
     ],
 
     sidebar: {
-      '/posts/': [
-        {
-          text: '内核与驱动',
-          items: [{ text: 'RK3568 的 ISP 与 RGA 分别是干嘛的', link: '/posts/rk3568-isp-rga' }]
-        },
-        {
-          text: '平台与外设',
-          items: [{ text: 'USB 摄像头还需要 SoC 的 ISP 吗', link: '/posts/rk3568-usb-camera-isp' }]
-        },
-        {
-          text: '工程与测试',
-          items: [{ text: 'RK3568 + Android 12 BSP 自动化测试方案', link: '/posts/bsp-automation-testing' }]
-        }
-      ]
+      '/posts/': buildSidebar()
     },
 
     search: {

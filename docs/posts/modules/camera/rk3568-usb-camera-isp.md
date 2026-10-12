@@ -1,7 +1,8 @@
 ---
 title: USB 摄像头还需要 SoC 的 ISP 吗
 date: 2026-10-09
-category: 平台与外设
+category: 复杂模块
+sub: 摄像头
 tags: [RK3568, USB, UVC, Camera, ISP]
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: RK3568 + Android 12 BSP 自动化测试方案
 date: 2026-10-10
-category: 工程与测试
+category: 软件系统交付
+sub: Android
 tags: [RK3568, Android, BSP, 自动化测试, pytest, CI]
 ---
 

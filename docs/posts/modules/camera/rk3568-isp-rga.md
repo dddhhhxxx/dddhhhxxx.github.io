@@ -1,7 +1,8 @@
 ---
 title: RK3568 上的 ISP 和 RGA 分别是干嘛的
 date: 2026-10-09
-category: 内核与驱动
+category: 复杂模块
+sub: 摄像头
 tags: [RK3568, Rockchip, ISP, RGA, Camera]
 ---
 

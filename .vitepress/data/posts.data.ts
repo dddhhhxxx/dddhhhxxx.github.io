@@ -7,6 +7,7 @@ export interface Post {
   year: string
   tags: string[]
   category: string
+  sub: string
   excerpt: string
 }
 
@@ -24,6 +25,7 @@ export default createContentLoader('posts/**/*.md', {
         year: String(frontmatter.date || '').slice(0, 4),
         tags: frontmatter.tags || [],
         category: frontmatter.category || '未分类',
+        sub: frontmatter.sub || '',
         // excerpt 可能是渲染函数，统一转成字符串
         excerpt: typeof excerpt === 'string' ? excerpt.replace(/<[^>]+>/g, '') : ''
       }))
