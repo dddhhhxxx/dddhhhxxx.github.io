@@ -38,7 +38,26 @@ async function mount() {
     path: route.path, // 每篇文章一个评论集合，中英文页面各自独立
     lang: isZh.value ? 'zh-CN' : 'en',
     dark: 'html.dark', // 跟随站点明暗（VitePress 暗色时 html 上有 .dark）
-    reaction: true, // 文章表情点赞（计数存服务端）
+    // 用 emoji 字符代替默认的贴吧表情图（默认图托管在 unpkg.com，国内常加载失败）
+    reaction: ['👍', '❤️', '🎉', '🤔', '👀', '🚀'],
+    // 表情对应的提示文案（默认文案是"赞同/反对/酷..."，和自定义表情对不上，这里覆盖）
+    locale: isZh.value
+      ? {
+          reaction0: '有帮助',
+          reaction1: '喜欢',
+          reaction2: '受教了',
+          reaction3: '值得思考',
+          reaction4: '持续关注',
+          reaction5: '厉害'
+        }
+      : {
+          reaction0: 'Helpful',
+          reaction1: 'Love it',
+          reaction2: 'Learned',
+          reaction3: 'Thoughtful',
+          reaction4: 'Following',
+          reaction5: 'Awesome'
+        },
     search: false,
     requiredMeta: [], // 昵称/邮箱都可留空 → 完全匿名可评
     meta: ['nick', 'mail', 'link'],
