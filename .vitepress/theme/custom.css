@@ -1,6 +1,8 @@
 /* Waline 评论/点赞样式：从 node_modules/@waline/client/dist/waline.css 复制而来，
    包内子路径 @import 在 Vite 里解析不了，改用相对路径内联 */
 @import './waline.css';
+/* full 版客户端额外需要：评论里的浏览器/系统/地区信息行样式 */
+@import './waline-meta.css';
 
 :root {
   --vp-c-brand-1: #1e6fd9;
@@ -206,7 +208,28 @@
   display: none !important;
 }
 
-/* ===== 点赞 / 评论区（Giscus） ===== */
+/* ===== 点赞 / 评论区（Waline） ===== */
+/* 防止 VitePress 的正文排版样式把评论区内容夹变形/截断 */
+.post-feedback__waline {
+  overflow: visible;
+  max-width: 100%;
+}
+.post-feedback__waline img,
+.post-feedback__waline svg {
+  max-width: none;
+}
+.post-feedback__waline .wl-reaction-img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+.post-feedback__waline .wl-card,
+.post-feedback__waline .wl-panel,
+.post-feedback__waline .wl-editor,
+.post-feedback__waline .wl-comment {
+  max-width: 100%;
+  word-break: break-word;
+}
 .post-feedback {
   margin-top: 48px;
   padding-top: 20px;
@@ -219,9 +242,12 @@
   color: var(--vp-c-text-2);
 }
 
-/* 用站点自身的配色变量喂给 Waline，深浅色自动跟随 */
+/* 用站点自身的配色变量喂给 Waline，深浅色自动跟随；
+   同时防止 VitePress 正文排版样式把评论区内容夹变形/截断 */
 .post-feedback__waline {
   margin-top: 4px;
+  overflow: visible;
+  max-width: 100%;
 
   --waline-theme-color: var(--vp-c-brand-1);
   --waline-active-color: var(--vp-c-brand-1);
