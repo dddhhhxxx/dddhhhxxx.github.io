@@ -1,3 +1,7 @@
+/* Waline 评论/点赞样式：从 node_modules/@waline/client/dist/waline.css 复制而来，
+   包内子路径 @import 在 Vite 里解析不了，改用相对路径内联 */
+@import './waline.css';
+
 :root {
   --vp-c-brand-1: #1e6fd9;
   --vp-c-brand-2: #2f7fe0;
@@ -200,6 +204,34 @@
 /* 隐藏 VitePress 自带语言菜单（右上角），改用左上角的自定义按钮 */
 .VPNavBarTranslations {
   display: none !important;
+}
+
+/* ===== 点赞 / 评论区（Giscus） ===== */
+.post-feedback {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.post-feedback__tip {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+/* 用站点自身的配色变量喂给 Waline，深浅色自动跟随 */
+.post-feedback__waline {
+  margin-top: 4px;
+
+  --waline-theme-color: var(--vp-c-brand-1);
+  --waline-active-color: var(--vp-c-brand-1);
+  --waline-bgcolor: var(--vp-c-bg);
+  --waline-bgcolor-light: var(--vp-c-bg-soft);
+  --waline-bgcolor-hover: var(--vp-c-bg-soft);
+  --waline-border-color: var(--vp-c-divider);
+  --waline-text-color: var(--vp-c-text-1);
+  --waline-info-color: var(--vp-c-text-3);
+  --waline-font-size: 15px;
 }
 
 @media (max-width: 640px) {

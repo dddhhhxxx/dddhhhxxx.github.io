@@ -9,10 +9,19 @@
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
-  "keywords": ["android", "bsp", "linux", "kernel", "blog"],
+  "keywords": [
+    "android",
+    "bsp",
+    "linux",
+    "kernel",
+    "blog"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "vitepress": "^1.6.4"
+  },
+  "dependencies": {
+    "@waline/client": "^3.16.1"
   }
 }
