@@ -38,8 +38,17 @@ async function mount() {
     path: route.path, // 每篇文章一个评论集合，中英文页面各自独立
     lang: isZh.value ? 'zh-CN' : 'en',
     dark: 'html.dark', // 跟随站点明暗（VitePress 暗色时 html 上有 .dark）
-    // 用 emoji 字符代替默认的贴吧表情图（默认图托管在 unpkg.com，国内常加载失败）
-    reaction: ['👍', '❤️', '🎉', '🤔', '👀', '🚀'],
+    // Waline 的 reaction 只接受图片 URL（塞进 <img src>），emoji 字符会渲染成裂图。
+    // 这里用自托管的 Twemoji SVG（docs/public/reaction/），零外部 CDN 依赖：
+    // 👍 ❤️(用💖) 🎉 🤔 👀 🚀
+    reaction: [
+      '/reaction/1f44d.svg',
+      '/reaction/1f496.svg',
+      '/reaction/1f389.svg',
+      '/reaction/1f914.svg',
+      '/reaction/1f440.svg',
+      '/reaction/1f680.svg'
+    ],
     // 表情对应的提示文案（默认文案是"赞同/反对/酷..."，和自定义表情对不上，这里覆盖）
     locale: isZh.value
       ? {
